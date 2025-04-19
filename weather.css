@@ -1,0 +1,65 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+p{
+  margin: 0;
+  padding: 0;
+}
+
+.heading{
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+
+.current-condition{
+  margin-top: 15px;
+}
+.current-condition-info{
+  width: 750px;
+  display: flex;
+  justify-content: space-between;
+}
+.currConditionHeading{
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.next15{
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.container{
+  margin-top: 10px;
+}
+.containerHeader{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  background-color: red;
+  color: white;
+  padding: 10px;
+}
+.date-title{
+  margin-left: 10px;
+}
+.day-info{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  margin-left: 5px;
+  padding: 10px;
+}
+
+.search-button{
+  cursor: pointer;
+  border-style: none;
+  color: white;
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+.search-button:hover{
+  background-color: black;
+}
