@@ -1,5 +1,3 @@
-const API_KEY = "PDQ2R7DHHCYVRAXTVBY6U2GFP";
-
 const currentConditionInfoEl = document.querySelector(".current-condition-info");
 const infoContainerEl = document.querySelector(".info-container");
 const statusMessageEl = document.querySelector(".status-message");
@@ -33,6 +31,16 @@ function setLoadingState(isLoading) {
   addressInputEl.disabled = isLoading;
   searchButtonEl.disabled = isLoading;
   searchButtonEl.textContent = isLoading ? "Searching..." : "Search";
+}
+
+function getApiBaseUrl() {
+  const { hostname, port } = window.location;
+
+  if ((hostname === "localhost" || hostname === "127.0.0.1") && port !== "3000") {
+    return "http://localhost:3000";
+  }
+
+  return "";
 }
 
 function displayCurrentCondition(address, currentConditions) {
@@ -72,11 +80,24 @@ async function weatherInfo(inputAddress) {
   setStatus("Loading weather data...");
 
   try {
+    if (window.location.protocol === "file:") {
+      throw new Error("OPEN_WITH_SERVER");
+    }
+
     const encodedAddress = encodeURIComponent(trimmedAddress);
-    const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodedAddress}?key=${API_KEY}`);
+    const response = await fetch(`${getApiBaseUrl()}/api/weather?location=${encodedAddress}`);
 
     if (!response.ok) {
-      throw new Error(`Weather API failed with status ${response.status}`);
+      let serverMessage = "";
+
+      try {
+        const errorPayload = await response.json();
+        serverMessage = errorPayload.error || errorPayload.details || "";
+      } catch (_) {
+        // Ignore JSON parse errors and use fallback message below.
+      }
+
+      throw new Error(serverMessage || `Weather API failed with status ${response.status}`);
     }
 
     const data = await response.json();
@@ -92,7 +113,13 @@ async function weatherInfo(inputAddress) {
   } catch (error) {
     currentConditionInfoEl.innerHTML = "";
     infoContainerEl.innerHTML = "";
-    setStatus("Could not fetch weather data. Check the location or try again.", "error");
+
+    if (error.message === "OPEN_WITH_SERVER") {
+      setStatus("Open the app at http://localhost:3000 (not as a local file) and try again.", "error");
+    } else {
+      setStatus(`Could not fetch weather data. ${error.message} Make sure the Node server is running with npm.cmd start.`, "error");
+    }
+
     console.error(error);
   } finally {
     setLoadingState(false);
