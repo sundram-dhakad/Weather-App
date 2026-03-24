@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="weather.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="weather-card" aria-labelledby="app-heading">
+      <h1 class="heading" id="app-heading">Find Weather Information About Any Location</h1>
+
+      <form class="input" id="search-form" novalidate>
+        <label class="sr-only" for="address-input">Enter location</label>
+        <input id="address-input" class="address-input" type="text" placeholder="Enter location" autocomplete="off">
+        <button class="search-button" type="submit">Search</button>
+      </form>
+
+      <p class="status-message" aria-live="polite"></p>
+
+      <section class="current-condition" aria-labelledby="current-heading">
+        <h2 class="currConditionHeading" id="current-heading">Current Condition</h2>
+        <div class="current-condition-info"></div>
+      </section>
+
+      <h2 class="next15">Next 15 Days Data</h2>
+      <section class="container" aria-label="15 day weather forecast">
+        <div class="containerHeader" role="row">
+          <div class="date-title" role="columnheader">Date</div>
+          <div role="columnheader">Temperature</div>
+          <div role="columnheader">Min Temp</div>
+          <div role="columnheader">Max Temp</div>
+          <div role="columnheader">Condition</div>
+        </div>
+        <div class="info-container"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="weather.js"></script>
+</body>
+</html>
