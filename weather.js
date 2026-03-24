@@ -127,7 +127,7 @@ async function weatherInfo(inputAddress) {
     if (error.message === "OPEN_WITH_SERVER") {
       setStatus("Open the app at http://localhost:3000 (not as a local file) and try again.", "error");
     } else {
-      setStatus(`Could not fetch weather data. ${error.message} Ensure local server is running or Netlify env var is set.`, "error");
+      setStatus(`Could not fetch weather data. ${error.message} Ensure local server is running or Vercel env var is set.`, "error");
     }
 
     console.error(error);

@@ -25,25 +25,21 @@ npm start
 
 4. Open `http://localhost:3000`.
 
-## Netlify Deployment (Git Repo)
+## Vercel Deployment
 
-This repo is configured for Netlify Functions.
+This repo is configured for Vercel using a Serverless Function at `api/weather.js`.
 
 1. Push your code to GitHub.
-2. In Netlify, click `Add new site` -> `Import an existing project`.
-3. Select your repository.
-4. Build settings:
-- Build command: leave empty
-- Publish directory: `.`
-- Functions directory: `netlify/functions`
-5. Add environment variable in Netlify:
+2. In Vercel, click `Add New...` -> `Project` and import your repository.
+3. Keep default project settings (no custom build command required).
+4. Add environment variable in Vercel:
 - Key: `VISUAL_CROSSING_API_KEY`
 - Value: your Visual Crossing API key
-6. Deploy.
+5. Deploy.
 
-The frontend calls `/api/weather`, and Netlify redirects it to the serverless function in `netlify/functions/weather.js`.
+The frontend calls `/api/weather`, and Vercel routes that path to the function in `api/weather.js`.
 
 ## Notes
 
 - Do not commit `.env`.
-- If you rotated your key, update it in Netlify environment settings.
+- If you rotated your key, update it in Vercel environment settings.
