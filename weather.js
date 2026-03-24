@@ -43,6 +43,16 @@ function getApiBaseUrl() {
   return "";
 }
 
+function getWeatherApiUrl(encodedAddress) {
+  const baseUrl = getApiBaseUrl();
+
+  if (baseUrl) {
+    return `${baseUrl}/api/weather?location=${encodedAddress}`;
+  }
+
+  return `/api/weather?location=${encodedAddress}`;
+}
+
 function displayCurrentCondition(address, currentConditions) {
   currentConditionInfoEl.innerHTML = `
     <div class="item"><strong>Location:</strong> ${escapeHtml(address)}</div>
@@ -85,7 +95,7 @@ async function weatherInfo(inputAddress) {
     }
 
     const encodedAddress = encodeURIComponent(trimmedAddress);
-    const response = await fetch(`${getApiBaseUrl()}/api/weather?location=${encodedAddress}`);
+    const response = await fetch(getWeatherApiUrl(encodedAddress));
 
     if (!response.ok) {
       let serverMessage = "";
@@ -117,7 +127,7 @@ async function weatherInfo(inputAddress) {
     if (error.message === "OPEN_WITH_SERVER") {
       setStatus("Open the app at http://localhost:3000 (not as a local file) and try again.", "error");
     } else {
-      setStatus(`Could not fetch weather data. ${error.message} Make sure the Node server is running with npm.cmd start.`, "error");
+      setStatus(`Could not fetch weather data. ${error.message} Ensure local server is running or Netlify env var is set.`, "error");
     }
 
     console.error(error);
