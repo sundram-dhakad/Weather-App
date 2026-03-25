@@ -1,6 +1,7 @@
-# Weather App
+# Weather-info24x7
 
 [LIVE LINK](https://weather-info24x7.vercel.app/)
+
 A weather forecast app powered by Visual Crossing.
 
 ## Local Run (Node server)
